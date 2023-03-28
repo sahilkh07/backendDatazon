@@ -11,19 +11,43 @@ const menRouter = express.Router();
 
 
 menRouter.get("/", async (req, res) => {
-    let {search,min,max} = req.query
-    search=search || ""
-    min=min || 1
-    max=max || 100000
-    console.log(search,min,max)
-    try{
-        let data = await MenModel.find({$and:[{product:{$regex:search, $options: 'i'}},{price:{$gte:min}},{price:{$lte:max}}]})
-        res.send(data)
-    }catch(err){
-        res.send(err.message)
-        console.log('err:', err)
+    let { search, min, max, page, limit } = req.query;
+    search = search || "";
+    min = min || 1;
+    max = max || 100000;
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 40;
+  
+    try {
+      const count = await MenModel.countDocuments({
+        $and: [
+          { product: { $regex: search, $options: "i" } },
+          { price: { $gte: min, $lte: max } },
+        ],
+      });
+  
+      const skip = (page - 1) * limit;
+      const totalPages = Math.ceil(count / limit);
+  
+      const query = {
+        $and: [
+          { product: { $regex: search, $options: "i" } },
+          { price: { $gte: min, $lte: max } },
+        ],
+      };
+  
+      const data = await MenModel.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit);
+  
+      res.send({ data, totalPages });
+    } catch (err) {
+      res.send(err.message);
+      console.log("err:", err);
     }
-})
+  });
+  
 menRouter.get("/single/:id", async (req, res) => {
     const ID = req.params.id
     try{
