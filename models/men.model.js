@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const manSchema = mongoose.Schema(
   {
+    URL:String,
     title:{type:String,required:true},
       stitle: {type:String,required:true},
       rating: String,
