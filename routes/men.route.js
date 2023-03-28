@@ -28,13 +28,14 @@ menRouter.get("/", async (req, res) => {
   
       const skip = (page - 1) * limit;
       const totalPages = Math.ceil(count / limit);
+      const query={}
   
-      const query = {
-        $and: [
-          { product: { $regex: search, $options: "i" } },
-          { price: { $gte: min, $lte: max } },
-        ],
-      };
+    //   const query = {
+    //     $and: [
+    //       { product: { $regex: search, $options: "i" } },
+    //       { price: { $gte: min, $lte: max } },
+    //     ],
+    //   };
   
       const data = await MenModel.find(query)
         .sort({ createdAt: -1 })
