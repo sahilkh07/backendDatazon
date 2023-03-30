@@ -57,20 +57,33 @@ menRouter.get("/single/:id", async (req, res) => {
         console.log('err:', err)
     }
 })
-menRouter.get("/brand", async (req, res) => {
-    let {brand,min,max} = req.query
-    brand=brand || ""
-    min=min || 1
-    max=max || 100000
-    console.log(brand,min,max)
-    try{
-        let data = await MenModel.find({$and:[{brand:{$regex:brand, $options: 'i'}},{price:{$gte:min}},{price:{$lte:max}}]})
-        res.send(data)
-    }catch(err){
-        res.send(err.message)
-        console.log('err:', err)
+menRouter.get("/search", async (req, res) => {
+    let { brand, min, max, page, limit } = req.query;
+    brand = brand || "";
+    min = min || 1;
+    max = max || 100000;
+    page = page || 1;
+    limit = limit || 10;
+  
+    try {
+      const query = {
+        $and: [
+          { brand: { $regex: brand, $options: "i" } },
+          { price: { $gte: min, $lte: max } },
+        ],
+      };
+      const data = await MenModel.find(query)
+        .limit(limit)
+        .skip((page - 1) * limit);
+      const count = await MenModel.countDocuments(query);
+      const totalPages = Math.ceil(count / limit);
+      res.send({ data, totalPages });
+    } catch (err) {
+      res.send(err.message);
+      console.log("err:", err);
     }
-})
+  });
+  
 
 menRouter.post("/", async (req, res) => {
     let payload = req.body
