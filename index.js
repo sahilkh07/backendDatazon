@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const { connections } = require('./config/db'); 
 const { menRouter } = require('./routes/men.route');
-
+const {userRouter}=require('./routes/user.route');
+const { cartRouter } = require('./routes/cart.route');
+const { authenticator } = require('./middleware/authentication');
 require('dotenv').config()
 
 const app = express();
@@ -13,8 +15,9 @@ app.use(cors({
     origin: "*"
 }))
 app.use("/men", menRouter)
-
-
+app.use("/user",userRouter)
+app.use("/cart",authenticator)
+app.use("/cart",cartRouter)
 
 app.get("/", (req, res) => {
     res.send("Welcome to Amazon database");
