@@ -5,6 +5,7 @@ const { menRouter } = require('./routes/men.route');
 const {userRouter}=require('./routes/user.route');
 const { cartRouter } = require('./routes/cart.route');
 const { authenticator } = require('./middleware/authentication');
+const { womenRouter } = require('./routes/women.route');
 require('dotenv').config()
 
 const app = express();
@@ -18,6 +19,7 @@ app.use("/men", menRouter)
 app.use("/user",userRouter)
 app.use("/cart",authenticator)
 app.use("/cart",cartRouter)
+app.use("/women",womenRouter)
 
 app.get("/", (req, res) => {
     res.send("Welcome to Amazon database");
