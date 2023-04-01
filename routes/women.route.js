@@ -48,9 +48,10 @@ womenRouter.get("/", async (req, res) => {
   });
   
 womenRouter.get("/single/:id", async (req, res) => {
-    const {id} = req.params
+    const ID = req.params.id
     try{
-        let data = await WomenModel.findOne({id})
+       
+        let data = await WomenModel.findOne({_id:ID})
         res.send(data)
     }catch(err){
         res.send(err.message)
