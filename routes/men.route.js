@@ -48,9 +48,9 @@ menRouter.get("/", async (req, res) => {
   });
   
 menRouter.get("/single/:id", async (req, res) => {
-    const {id} = req.params
+  const ID = req.params.id
     try{
-        let data = await MenModel.findOne(id)
+        let data = await MenModel.findOne({_id:ID})
         res.send(data)
     }catch(err){
         res.send(err.message)
