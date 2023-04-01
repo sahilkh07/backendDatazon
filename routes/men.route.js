@@ -50,7 +50,7 @@ menRouter.get("/", async (req, res) => {
 menRouter.get("/single/:id", async (req, res) => {
     const {id} = req.params
     try{
-        let data = await MenModel.findOne({id})
+        let data = await MenModel.findOne(id)
         res.send(data)
     }catch(err){
         res.send(err.message)
