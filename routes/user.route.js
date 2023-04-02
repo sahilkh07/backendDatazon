@@ -40,7 +40,7 @@ userRouter.post('/login',async(req,res)=>{
         )
         if(isPasswordCorrect){
             const token =await jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY)
-            res.json({msg:"Login Success",token})
+            res.json({msg:"Login Success",token,user_details:user})
         }else{
             res.json({msg:"Invalid Credentials"})
         }
@@ -50,6 +50,7 @@ userRouter.post('/login',async(req,res)=>{
     }
    
 })
+
 
 
 userRouter.get('/',async(req,res)=>{
