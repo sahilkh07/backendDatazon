@@ -34,7 +34,7 @@ cartRouter.patch('/update/:id',async(req,res)=>{
 try {
     const data = req.body;
     const _id = req.params.id;
-    const updated =await BagModel.findByIdAndUpdate(_id,data)
+    const updated =await BagModel.findByIdAndUpdate({_id},data)
     res.send("Item updated")
 } catch (error) {
     res.send(error.message)
