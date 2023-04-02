@@ -9,7 +9,7 @@ const bagSchema = mongoose.Schema(
     strike: Number,
     discount: String,
     size: String,
-    qunatity:Number,
+    quantity:Number,
     userId:{type:String,required:true}
   },
   {

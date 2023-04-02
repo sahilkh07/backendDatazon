@@ -51,6 +51,7 @@ userRouter.post('/login',async(req,res)=>{
    
 })
 
+
 userRouter.get('/',async(req,res)=>{
     try {
         let data = await User.find()
