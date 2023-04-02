@@ -33,7 +33,7 @@ userRouter.post('/login',async(req,res)=>{
     try {
         const payload=req.body;
         const user= await User.findOne({email:payload.email})
-        if(!user) return res.send({msg:"Please Signup First"})
+        if(!user) return res.send({msg:"User doesn't exist,Please Signup First"})
 
         const isPasswordCorrect=await bcrypt.compareSync(
             payload.password,user.password
@@ -42,7 +42,7 @@ userRouter.post('/login',async(req,res)=>{
             const token =await jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY)
             res.json({msg:"Login Success",token,user_details:user})
         }else{
-            res.json({msg:"Invalid Credentials"})
+            res.json({msg:"Invalid Password"})
         }
     } catch (error) {
         res.send(error.message)
