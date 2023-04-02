@@ -21,10 +21,10 @@ cartRouter.get('/',async(req,res)=>{
 
 cartRouter.post('/',async(req,res)=>{
 try {
-    const data = req.body
-    const newPost= new BagModel(data)
-    await newPost.save()
-    res.send({msg:"Posted Data"})
+    const data1 = req.body
+    const newPost= new BagModel(data1)
+   const data= await newPost.save()
+    res.send({msg:"Posted Data",data})
 } catch (error) {
     res.send(error.message)
 }
@@ -56,10 +56,10 @@ try {
 })
 cartRouter.post('/save',async(req,res)=>{
     try {
-        const data = req.body
-        const newPost= new SaveModel(data)
-        await newPost.save()
-        res.send({msg:"Posted Data"})
+        const data1 = req.body
+        const newPost= new SaveModel(data1)
+        const data=await newPost.save()
+        res.send({msg:"Posted Data",data})
     } catch (error) {
         res.send(error.message)
     }
