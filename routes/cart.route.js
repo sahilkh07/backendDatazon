@@ -35,7 +35,7 @@ try {
     const data = req.body;
     const _id = req.params.id;
     const updated =await BagModel.findByIdAndUpdate({_id},data)
-    res.send("Item updated")
+    res.send("Item updated",updated)
 } catch (error) {
     res.send(error.message)
 }
