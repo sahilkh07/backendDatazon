@@ -40,6 +40,15 @@ try {
     res.send(error.message)
 }
 })
+cartRouter.delete('/put',async(req,res)=>{
+    try {
+    const {userId}=req.body
+        const data = await BagModel.deleteMany({userId})
+        res.send(data)
+    } catch (error) {
+        res.send(error)
+    }
+})
 
 cartRouter.delete('/delete/:id',async(req,res)=>{
 try {
