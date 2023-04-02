@@ -62,8 +62,8 @@ userRouter.get('/',async(req,res)=>{
 
 userRouter.get('/update/:id',async(req,res)=>{
 try {
-    const{id}=req.params
-    let data = await User.findOne({id})
+    const ID = req.params.id
+    let data = await User.findOne({_id:ID})
     res.send(data)
     
 } catch (error) {

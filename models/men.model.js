@@ -8,6 +8,7 @@ const manSchema = mongoose.Schema(
     price: Number,
     strike: Number,
     discount: String,
+    quantity:Number
   },
   {
     versionKey: false,
