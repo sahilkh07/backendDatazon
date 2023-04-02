@@ -43,7 +43,7 @@ try {
 cartRouter.delete('/delete/:id',async(req,res)=>{
 try {
     const _id = req.params.id;
-    const deleted=await BagModel.findByIdAndDelete(_id)
+    const deleted=await BagModel.findByIdAndDelete({_id})
     if(deleted){
         res.send("Item Delted")
     }else{
