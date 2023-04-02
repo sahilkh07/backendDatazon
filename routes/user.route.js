@@ -14,16 +14,16 @@ userRouter.post('/register',async(req,res)=>{
         const user = await User.findOne({email:payload.email})
 
         if(user){
-            return res.send({msg:"Please Login,User Already Exist"})
+            return res.status(400).send({msg:"Please Login,User Already Exist"})
         }else{
         const hashPasword=await bcrypt.hashSync(payload.password,8)
            payload.password=hashPasword;
            const newUser=new User(payload)
            await newUser.save()
-           return res.json({msg:"User Registered",user:newUser})
+           return res.status(200).json({msg:"User Registered",user:newUser})
         }
     }catch(err){
-        res.send({msg:err.message})
+        res.status(400).send({msg:err.message})
 
     }
 })
