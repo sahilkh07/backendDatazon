@@ -65,5 +65,23 @@ cartRouter.post('/save',async(req,res)=>{
     }
 
 })
+cartRouter.get('/saveget',async(req,res)=>{
+try {
+    const data =await SaveModel.find()
+    res.send(data)
+} catch (error) {
+    res.send(error.message)
+    
+}
+})
+cartRouter.delete('/savedelete',async(req,res)=>{
+try {
+    const _id =req.params.id 
+    const data = await SaveModel.findByIdAndDelete({_id})
+} catch (error) {
+    res.send(error.message)
+    
+}
+})
 
 module.exports={cartRouter}
