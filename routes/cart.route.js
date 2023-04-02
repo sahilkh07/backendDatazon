@@ -74,7 +74,7 @@ try {
     
 }
 })
-cartRouter.delete('/savedelete',async(req,res)=>{
+cartRouter.delete('/savedelete/:id',async(req,res)=>{
 try {
     const _id =req.params.id 
     const data = await SaveModel.findByIdAndDelete({_id})
