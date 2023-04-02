@@ -1,7 +1,7 @@
 const {BagModel}=require("../models/bag.model")
 const {Router}=require("express")
 
-
+const {SaveModel} =require('../models/save.model')
 const cartRouter=Router()
 
 cartRouter.get('/',async(req,res)=>{
@@ -53,6 +53,17 @@ try {
 } catch (error) {
     res.send(error.message)
 }
+})
+cartRouter.post('/save',async(req,res)=>{
+    try {
+        const data = req.body
+        const newPost= new SaveModel(data)
+        await newPost.save()
+        res.send({msg:"Posted Data"})
+    } catch (error) {
+        res.send(error.message)
+    }
+
 })
 
 module.exports={cartRouter}
