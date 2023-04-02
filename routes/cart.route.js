@@ -33,8 +33,8 @@ try {
 cartRouter.patch('/update/:id',async(req,res)=>{
 try {
     const data = req.body;
-    const id = req.params.id;
-    const updated =await Post.findByIdAndUpdate(id,data)
+    const _id = req.params.id;
+    const updated =await Post.findByIdAndUpdate(_id,data)
     res.send("Item updated")
 } catch (error) {
     res.send(error.message)
@@ -42,8 +42,8 @@ try {
 })
 cartRouter.delete('/delete/:id',async(req,res)=>{
 try {
-    const id = req.params.id;
-    const deleted=await Post.findByIdAndDelete(id)
+    const _id = req.params.id;
+    const deleted=await Post.findByIdAndDelete(_id)
     if(deleted){
         res.send("Item Delted")
     }else{
