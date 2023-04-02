@@ -33,7 +33,7 @@ userRouter.post('/login',async(req,res)=>{
     try {
         const payload=req.body;
         const user= await User.findOne({email:payload.email})
-        if(!user) return res.send("Please Signup First")
+        if(!user) return res.send({msg:"Please Signup First"})
 
         const isPasswordCorrect=await bcrypt.compareSync(
             payload.password,user.password
