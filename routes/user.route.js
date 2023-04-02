@@ -60,4 +60,15 @@ userRouter.get('/',async(req,res)=>{
     }
 })
 
+userRouter.patch('/update/:id',async(req,res)=>{
+try {
+    const{id}=req.params
+    let data = await User.findOne(id)
+    res.send(data)
+    
+} catch (error) {
+    res.send(error)
+}
+})
+
 module.exports={userRouter}
