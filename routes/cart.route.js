@@ -8,7 +8,7 @@ cartRouter.get('/',async(req,res)=>{
     try {
         const {userId}=req.body
      
-        const data = await Post.find({userId})
+        const data = await BagModel.find({userId})
         res.send({data,msg:"Your Items"})
 
     } catch (error) {
@@ -22,7 +22,7 @@ cartRouter.get('/',async(req,res)=>{
 cartRouter.post('/',async(req,res)=>{
 try {
     const data = req.body
-    const newPost= new Post(data)
+    const newPost= new BagModel(data)
     await newPost.save()
     res.send({msg:"Posted Data"})
 } catch (error) {
@@ -34,7 +34,7 @@ cartRouter.patch('/update/:id',async(req,res)=>{
 try {
     const data = req.body;
     const _id = req.params.id;
-    const updated =await Post.findByIdAndUpdate(_id,data)
+    const updated =await BagModel.findByIdAndUpdate(_id,data)
     res.send("Item updated")
 } catch (error) {
     res.send(error.message)
@@ -43,7 +43,7 @@ try {
 cartRouter.delete('/delete/:id',async(req,res)=>{
 try {
     const _id = req.params.id;
-    const deleted=await Post.findByIdAndDelete(_id)
+    const deleted=await BagModel.findByIdAndDelete(_id)
     if(deleted){
         res.send("Item Delted")
     }else{
