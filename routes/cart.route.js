@@ -78,6 +78,7 @@ cartRouter.delete('/savedelete',async(req,res)=>{
 try {
     const _id =req.params.id 
     const data = await SaveModel.findByIdAndDelete({_id})
+    res.send(data)
 } catch (error) {
     res.send(error.message)
     
