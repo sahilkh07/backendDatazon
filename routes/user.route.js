@@ -50,7 +50,7 @@ userRouter.post('/login',async(req,res)=>{
     }
     userRouter.get('/',async(req,res)=>{
         try {
-            let data = User.find()
+            let data = await User.find()
             res.send(data)
         } catch (error) {
          res.send(error)   
