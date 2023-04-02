@@ -3,6 +3,7 @@ const {Router}=require("express")
 
 const {SaveModel} =require('../models/save.model')
 const cartRouter=Router()
+const {OrderModel} =require('../models/order.model')
 
 cartRouter.get('/',async(req,res)=>{
     try {
@@ -62,6 +63,24 @@ try {
 } catch (error) {
     res.send(error.message)
 }
+})
+cartRouter.post('/orders',async(req,res)=>{
+    try{
+      
+    const data = await OrderModel.insertMany(req.body)
+        res.send({msg:"Posted Data",data})
+    }catch(err){
+        res.send(err.message)
+    }
+})
+cartRouter.get('/orders',async(req,res)=>{
+    try{
+      const {userId}=req.body
+        const data = await OrderModel.find({userId})
+            res.send({msg:"Your Data",data})
+        }catch(err){
+            res.send(err.message)
+        }
 })
 cartRouter.post('/save',async(req,res)=>{
     try {
