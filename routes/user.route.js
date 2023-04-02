@@ -45,7 +45,8 @@ userRouter.post('/login',async(req,res)=>{
             res.json({msg:"Invalid Password"})
         }
     } catch (error) {
-        res.send(error.message)
+
+        res.status(400).send({msg:err.message})
         
     }
    
