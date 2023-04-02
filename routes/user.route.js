@@ -48,6 +48,14 @@ userRouter.post('/login',async(req,res)=>{
         res.send(error.message)
         
     }
+    userRouter.get('/',async(req,res)=>{
+        try {
+            let data = User.find()
+            res.send(data)
+        } catch (error) {
+         res.send(error)   
+        }
+    })
 })
 
 module.exports={userRouter}
