@@ -66,8 +66,9 @@ cartRouter.post('/save',async(req,res)=>{
 
 })
 cartRouter.get('/saveget',async(req,res)=>{
+    const {userId}=req.body
 try {
-    const data =await SaveModel.find()
+    const data =await SaveModel.find({userId})
     res.send(data)
 } catch (error) {
     res.send(error.message)
