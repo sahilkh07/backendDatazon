@@ -32,14 +32,30 @@ try {
 })
 
 cartRouter.patch('/update/:id',async(req,res)=>{
-try {
-    const data = req.body;
-    const _id = req.params.id;
-    const updated =await BagModel.findByIdAndUpdate({_id},data)
-    res.send({msg:"Item updated",updated})
-} catch (error) {
-    res.send(error.message)
-}
+// try {
+//     const data = req.body;
+//     const _id = req.params.id;
+//     const updated =await BagModel.findByIdAndUpdate({_id},data)
+//     res.send({msg:"Item updated",updated})
+// } catch (error) {
+//     res.send(error.message)
+// }
+
+const {id}=req.params;
+ const payload=req.body;
+ try {
+  const user=await BagModel.findOne({_id:id});
+  const noteId=user.userID;
+  const userId=req.body.userID;
+  if(noteId!=userId){
+   res.send({"msg":"You are not authorized"})
+  }else{
+   await BagModel.findByIdAndUpdate({_id:id},payload)
+   res.send({"msg":"Item updated successfully"})
+  }
+ } catch (error) {
+res.send({"err":error.message})
+ }
 })
 cartRouter.delete('/put',async(req,res)=>{
     try {
@@ -52,17 +68,21 @@ cartRouter.delete('/put',async(req,res)=>{
 })
 
 cartRouter.delete('/delete/:id',async(req,res)=>{
-try {
-    const _id = req.params.id;
-    const deleted=await BagModel.findByIdAndDelete({_id})
-    if(deleted){
-        res.send("Item Delted")
-    }else{
-        res.send("Item Not Found ")
+    const {id}=req.params;
+    try {
+     const user=await BagModel.findOne({_id:id});
+     const noteId=user.userID;
+     const userId=req.body.userID;
+     if(noteId!=userId){
+      res.send({"msg":"You are not authorized"})
+     }else{
+      await BagModel.findByIdAndDelete({_id:id})
+      res.send({"msg":"Item deleted successfully"})
+     }
+    } catch (error) {
+   res.send({"err":error.message})
     }
-} catch (error) {
-    res.send(error.message)
-}
+   
 })
 cartRouter.post('/orders',async(req,res)=>{
     try{
