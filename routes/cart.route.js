@@ -53,7 +53,8 @@ const {id}=req.params;
    await BagModel.findByIdAndUpdate({_id:id},payload)
    res.send({"msg":"Item updated successfully"})
   }
- } catch (error) {
+ } 
+ catch (error) {
 res.send({"err":error.message})
  }
 })
